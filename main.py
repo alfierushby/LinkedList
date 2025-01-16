@@ -11,8 +11,10 @@ class LinkedList:
     def __init__(self):
         self.head = None
         self.tail = None
+        self.length = 0
 
     def add_node(self, value):
+        self.length+=1
         new_node = Node(value, None)
         if self.head is None:
             self.head = new_node
@@ -31,6 +33,7 @@ class LinkedList:
             return
 
         if node.next.value == value:
+            self.length -= 1
             node.next = node.next.next
             return
 
@@ -38,9 +41,6 @@ class LinkedList:
 
     def delete_node_index(self, index):
         current_node = self.head
-        if index == 0:
-            self.head = current_node.next
-            return
         if index < 0:
             return
 
@@ -49,13 +49,12 @@ class LinkedList:
             if current_node is None:
                 return
 
+        self.length -= 1
         current_node.next = current_node.next.next
 
     def sort(self):
-        current_node = self.head
-        while current_node is not None:
-            self.__bubble_pass(current_node)
-            current_node = current_node.next
+        for i in range(self.length):
+            self.__bubble_pass(self.head)
 
     def __bubble_pass(self, node):
         if node.next is None:
@@ -110,4 +109,8 @@ if __name__ == '__main__':
     linked_list.insert_sorted(8)
     linked_list.print_nodes()
     linked_list.reverse_list()
+    linked_list.print_nodes()
+    linked_list.add_node(5)
+    linked_list.print_nodes()
+    linked_list.sort()
     linked_list.print_nodes()
