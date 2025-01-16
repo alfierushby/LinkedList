@@ -77,6 +77,22 @@ class LinkedList:
 
         current_node.next = Node(value, current_node.next)
 
+    def reverse_list(self):
+        old_head = self.head
+
+        current_node = self.head
+        prev_node = None
+
+        while current_node is not None:
+            temp = current_node.next
+            # Make the current node point to the previous node
+            current_node.next = prev_node
+
+            prev_node = current_node
+            current_node = temp
+
+        self.head = self.tail
+        self.tail = old_head
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -92,4 +108,6 @@ if __name__ == '__main__':
     linked_list.sort()
     linked_list.print_nodes()
     linked_list.insert_sorted(8)
+    linked_list.print_nodes()
+    linked_list.reverse_list()
     linked_list.print_nodes()
