@@ -11,10 +11,12 @@ class LinkedList:
     def __init__(self):
         self.head = None
         self.tail = None
-        self.length = 0
+        self.__length = 0
 
     def add_node(self, value):
-        self.length+=1
+        if type(value) is not float and type(value) is not int:
+            raise TypeError('Value can only be a number')
+        self.__length += 1
         new_node = Node(value, None)
         if self.head is None:
             self.head = new_node
@@ -33,7 +35,7 @@ class LinkedList:
             return
 
         if node.next.value == value:
-            self.length -= 1
+            self.__length -= 1
             node.next = node.next.next
             return
 
@@ -49,11 +51,11 @@ class LinkedList:
             if current_node is None:
                 return
 
-        self.length -= 1
+        self.__length -= 1
         current_node.next = current_node.next.next
 
     def sort(self):
-        for i in range(self.length):
+        for i in range(self.__length):
             self.__bubble_pass(self.head)
 
     def __bubble_pass(self, node):
@@ -69,6 +71,9 @@ class LinkedList:
             self.__bubble_pass(node.next)
 
     def insert_sorted(self, value):
+        if type(value) is not float and type(value) is not int:
+            raise TypeError('Value can only be a number')
+
         current_node = self.head
 
         while current_node.next.value <= value:
@@ -93,10 +98,9 @@ class LinkedList:
         self.head = self.tail
         self.tail = old_head
 
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print('PyCharm')
-
     linked_list = LinkedList()
     linked_list.add_node(1)
     linked_list.add_node(14)
